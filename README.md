@@ -12,6 +12,8 @@ Demo plugin to show how to extend remote control in API
 - Move the file included to plugins/extendRemoteControl directory
 
 ## LimeSurvey configuration
+
+### With LimeSurvey 2.06 or lesser
 To allow plugin to be called via RPC POST routine, you need to disable CsrfValidation for plugins/direct'. This can be done in application/config/config.php.
 ````
 	'components' => array(
@@ -27,6 +29,9 @@ To allow plugin to be called via RPC POST routine, you need to disable CsrfValid
 	[...]
 	),
 ````
+
+### With LimeSurvey 2.50 after build 160330
+The plugin can be used with newUnsecureRequest event
 
 ## Home page & Copyright
 - HomePage <http://extensions.sondages.pro/>
