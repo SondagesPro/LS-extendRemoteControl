@@ -48,7 +48,6 @@ class extendRemoteControl extends \ls\pluginmanager\PluginBase {
         Yii::import('application.helpers.remotecontrol.*');
         Yii::setPathOfAlias('extendRemoteControl', dirname(__FILE__));
         Yii::import("extendRemoteControl.RemoteControlHandler");
-        Yii::import("extendRemoteControl.extendRemoteControlHttpRequest");
         $oHandler=new \RemoteControlHandler($oAdminController);
         $RPCType=Yii::app()->getConfig("RPCInterface");
         if($RPCType!='json')
