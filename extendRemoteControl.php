@@ -5,7 +5,7 @@
  * @author Denis Chenu <denis@sondages.pro>
  * @copyright 2015 Denis Chenu <http://sondages.pro>
  * @license GPL v3
- * @version 0.1
+ * @version 1.0
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -44,10 +44,11 @@ class extendRemoteControl extends \ls\pluginmanager\PluginBase {
             return;
         $action = $oEvent->get('function');
 
-        $oAdminController = new \AdminController('admin');
+        $oAdminController = new \AdminController('admin/remotecontrol');
         Yii::import('application.helpers.remotecontrol.*');
         Yii::setPathOfAlias('extendRemoteControl', dirname(__FILE__));
         Yii::import("extendRemoteControl.RemoteControlHandler");
+        //Yii::import("extendRemoteControl.extendRemoteControlHttpRequest");
         $oHandler=new \RemoteControlHandler($oAdminController);
         $RPCType=Yii::app()->getConfig("RPCInterface");
         if($RPCType!='json')
@@ -93,10 +94,7 @@ class extendRemoteControl extends \ls\pluginmanager\PluginBase {
             }
             else // Show something ....
             {
-                header("Content-type: text/html; charset=UTF-8");
-                $oAdminController->_getAdminHeader();
-                App()->getController()->renderPartial('application.views.admin.remotecontrol.index_view',$aData);
-                echo "</body></html>";
+                return $oAdminController->render('application.views.admin.remotecontrol.index_view',$aData);
             }
         }
     }
@@ -118,6 +116,10 @@ class extendRemoteControl extends \ls\pluginmanager\PluginBase {
             $this->settings['information']['content'].="<p class='alert alert-info'>".sprintf(gT("The remote url was <code>%s</code>",'unescaped'),$url)."</p>";
             if(Yii::app()->getConfig("rpc_publish_api") == true)
             {
+                if(floatval(Yii::app()->getConfig("versionnumber"))>=2.5)
+                {
+                    $url=$this->api->createUrl('admin/pluginhelper', array('plugin' => $this->getName(), 'sa'=>'sidebody','method'=>'actionIndex','surveyId'=>0));
+                }
                 $this->settings['information']['content'].="<p class='alert alert-warning'>".sprintf(gT("The API was published on <a href='%s'>%s</a>",'unescaped'),$url,$url)."</p>";
             }
         }
@@ -127,5 +129,35 @@ class extendRemoteControl extends \ls\pluginmanager\PluginBase {
         }
         return parent::getPluginSettings($getValues);
     }
+
+    /**
+     * Used by PluginHelper->getContent
+     */
+    public function actionIndex()
+    {
+        if(Yii::app()->getConfig("RPCInterface")=='json' && Yii::app()->getConfig("rpc_publish_api"))
+        {
+            $oAdminController = new \AdminController('admin/remotecontrol');
+            Yii::import('application.helpers.remotecontrol.*');
+            Yii::setPathOfAlias('extendRemoteControl', dirname(__FILE__));
+            Yii::import("extendRemoteControl.RemoteControlHandler");
+            $oHandler=new \RemoteControlHandler($oAdminController);
+            $reflector = new ReflectionObject($oHandler);
+            foreach ($reflector->getMethods(ReflectionMethod::IS_PUBLIC) as $method) {
+                /* @var $method ReflectionMethod */
+                if (substr($method->getName(),0,1) !== '_') {
+                    $list[$method->getName()] = array(
+                        'description' => str_replace(array("\r", "\r\n", "\n"), "<br/>", $method->getDocComment()),
+                        'parameters'  => $method->getParameters()
+                    );
+                }
+            }
+            ksort($list);
+            $aData['method'] = 'json';
+            $aData['list'] = $list;
+            return Yii::app()->controller->renderPartial('application.views.admin.remotecontrol.index_view', $aData, true);
+        }
+    }
+
 
 }
