@@ -1,9 +1,9 @@
 <?php
 /**
- * Demo plugin to show how to extendRemoteControl Plugin for LimeSurvey :
+ * Demo plugin to show how to extendRemoteControl Plugin for LimeSurvey.
  *
  * @author Denis Chenu <denis@sondages.pro>
- * @copyright 2015 Denis Chenu <http://sondages.pro>
+ * @copyright 2015-2016 Denis Chenu <http://sondages.pro>
  * @license GPL v3
  * @version 1.0
  *
@@ -37,6 +37,10 @@ class extendRemoteControl extends \ls\pluginmanager\PluginBase {
         $this->subscribe('newUnsecureRequest','newDirectRequest');
     }
 
+    /**
+     * The access is done here for remoteControl access with plugin
+     * @see remotecontrol::run()
+     */
     public function newDirectRequest()
     {
         $oEvent = $this->getEvent();
@@ -48,7 +52,6 @@ class extendRemoteControl extends \ls\pluginmanager\PluginBase {
         Yii::import('application.helpers.remotecontrol.*');
         Yii::setPathOfAlias('extendRemoteControl', dirname(__FILE__));
         Yii::import("extendRemoteControl.RemoteControlHandler");
-        //Yii::import("extendRemoteControl.extendRemoteControlHttpRequest");
         $oHandler=new \RemoteControlHandler($oAdminController);
         $RPCType=Yii::app()->getConfig("RPCInterface");
         if($RPCType!='json')
@@ -92,12 +95,16 @@ class extendRemoteControl extends \ls\pluginmanager\PluginBase {
                 $content=$oAdminController->renderPartial('application.views.admin.remotecontrol.index_view',$aData,true);
                 $oEvent->setContent($this, $content);
             }
-            else // Show something ....
+            else // Show something for 2.5, but 2.5 have a better system
             {
                 return $oAdminController->render('application.views.admin.remotecontrol.index_view',$aData);
             }
         }
     }
+    /**
+     * Update the information content to show the good link
+     * @params getValues
+     */
     public function getPluginSettings($getValues=true)
     {
         $this->settings['information']['content']="";
@@ -131,7 +138,9 @@ class extendRemoteControl extends \ls\pluginmanager\PluginBase {
     }
 
     /**
+     * Show remote control function list in 2.50
      * Used by PluginHelper->getContent
+     * @see remotecontrol::run()
      */
     public function actionIndex()
     {
@@ -147,7 +156,7 @@ class extendRemoteControl extends \ls\pluginmanager\PluginBase {
                 /* @var $method ReflectionMethod */
                 if (substr($method->getName(),0,1) !== '_') {
                     $list[$method->getName()] = array(
-                        'description' => str_replace(array("\r", "\r\n", "\n"), "<br/>", $method->getDocComment()),
+                        'description' => "<pre>".$method->getDocComment()."</pre>",
                         'parameters'  => $method->getParameters()
                     );
                 }
