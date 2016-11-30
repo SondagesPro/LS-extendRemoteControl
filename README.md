@@ -39,5 +39,5 @@ The plugin can be used with newUnsecureRequest event
 - Licence : GNU General Public License <https://www.gnu.org/licenses/gpl-3.0.html>
 
 ## Support
-- Issues <https://framagit.org/.org/SondagePro-LimeSurvey-plugin/extendRemoteControl/issues>
+- Issues <https://framagit.org/SondagePro-LimeSurvey-plugin/extendRemoteControl/issues>
 - Professional support <http://extensions.sondages.pro/1>
