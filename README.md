@@ -34,10 +34,10 @@ To allow plugin to be called via RPC POST routine, you need to disable CsrfValid
 The plugin can be used with newUnsecureRequest event
 
 ## Home page & Copyright
-- HomePage <http://extensions.sondages.pro/>
+- HomePage <http://extensions.sondages.pro/extendremotecontrol/>
 - Copyright © 2015-2016 Denis Chenu <http://sondages.pro>
 - Licence : GNU General Public License <https://www.gnu.org/licenses/gpl-3.0.html>
 
 ## Support
-- Issues <https://git.framasoft.org/SondagePro-LimeSurvey-plugin/extendRemoteControl/issues>
+- Issues <https://framagit.org/SondagePro-LimeSurvey-plugin/extendRemoteControl/issues>
 - Professional support <http://extensions.sondages.pro/1>
