@@ -39,4 +39,41 @@ class RemoteControlHandler extends remotecontrol_handle
             }
         }
     }
+
+    /**
+    * RPC Routine to get global permission of the actual user
+    *
+    * @access public
+    * @param string $sSessionKey Auth credentials
+    * @param string $sPermission string Name of the permission - see function getGlobalPermissions
+    * @param $sCRUD string The permission detailsyou want to check on: 'create','read','update','delete','import' or 'export'
+    * @return bool True if user has the permission
+    * @return boolean
+    */
+    public function hasGlobalPermission($sSessionKey,$sPermission,$sCRUD='read')
+    {
+        $this->_checkSessionKey($sSessionKey);
+        return array(
+            'permission'=>Permission::model()->hasGlobalPermission($sPermission,$sCRUD)
+        );
+    }
+
+    /**
+    * RPC Routine to get survey permission of the actual user
+    *
+    * @access public
+    * @param string $sSessionKey Auth credentials
+    * @param $iSurveyID integer The survey ID
+    * @param $sPermission string Name of the permission
+    * @param $sCRUD string The permission detail you want to check on: 'create','read','update','delete','import' or 'export'
+    * @return bool True if user has the permission
+    * @return boolean
+    */
+    public function hasSurveyPermission($sSessionKey,$iSurveyID, $sPermission, $sCRUD='read')
+    {
+        $this->_checkSessionKey($sSessionKey);
+        return array(
+            'permission'=>\Permission::model()->hasSurveyPermission($iSurveyID, $sPermission, $sCRUD),
+        );
+    }
 }
