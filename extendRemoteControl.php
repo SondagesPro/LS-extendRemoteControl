@@ -3,9 +3,9 @@
  * Demo plugin to show how to extendRemoteControl Plugin for LimeSurvey.
  *
  * @author Denis Chenu <denis@sondages.pro>
- * @copyright 2015-2016 Denis Chenu <http://sondages.pro>
+ * @copyright 2015-2018 Denis Chenu <http://sondages.pro>
  * @license GPL v3
- * @version 1.1.0
+ * @version 1.1.1
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -18,7 +18,7 @@
  * GNU General Public License for more details.
  */
 
-class extendRemoteControl extends \ls\pluginmanager\PluginBase {
+class extendRemoteControl extends PluginBase {
     protected $storage = 'DbStorage';
     static protected $description = 'Allow to add function to remoteControl';
     static protected $name = 'extendRemoteControl';
