@@ -20,6 +20,18 @@
 class RemoteControlHandler extends remotecontrol_handle
 {
     /**
+     * @inheritdoc
+     * Disable webroute else json returned can be broken
+     */
+    public function __construct(AdminController $controller)
+    {
+        /* Deactivate web log */
+        foreach (Yii::app()->log->routes as $route) {
+            $route->enabled = $route->enabled && !($route instanceOf CWebLogRoute);
+        }
+        parent::__construct($controller);
+    }
+    /**
     * RPC Routine to get information on user from extendRemoteControl plugin
     *
     * @access public
