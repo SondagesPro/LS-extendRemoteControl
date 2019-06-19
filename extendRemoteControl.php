@@ -5,7 +5,7 @@
  * @author Denis Chenu <denis@sondages.pro>
  * @copyright 2015-2019 Denis Chenu <http://sondages.pro>
  * @license GPL v3
- * @version 1.1.2
+ * @version 1.1.3
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -111,7 +111,7 @@ class extendRemoteControl extends PluginBase {
         /* test if plugins/unsecure is in noCsrfValidationRoutes : in internal for compatible LimeSurvey version */
         if(in_array('plugins/unsecure',App()->request->noCsrfValidationRoutes))
         {
-            $url=$this->api->createUrl('plugins/unsecure', array('plugin' => $this->getName(), 'function' => 'action'));
+            $url=Yii::app()->getController()->createAbsoluteUrl('plugins/unsecure', array('plugin' => $this->getName(), 'function' => 'action'));
         }
         else
         {
