@@ -3,9 +3,9 @@
  * Demo plugin to show how to extendRemoteControl Plugin for LimeSurvey.
  *
  * @author Denis Chenu <denis@sondages.pro>
- * @copyright 2015-2018 Denis Chenu <http://sondages.pro>
+ * @copyright 2015-2019 Denis Chenu <http://sondages.pro>
  * @license GPL v3
- * @version 1.1.1
+ * @version 1.1.2
  *
  * This program is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
@@ -116,7 +116,7 @@ class extendRemoteControl extends PluginBase {
         else
         {
             $this->settings['information']['content'].="<p class='alert alert-warning'>You need to add 'plugins/direct' to noCsrfValidationRoutes in your config file</p>";
-            $url=$this->api->createUrl('plugins/direct', array('plugin' => $this->getName(), 'function' => 'action'));
+            $url=Yii::app()->getController()->createAbsoluteUrl('plugins/direct', array('plugin' => $this->getName(), 'function' => 'action'));
         }
         if(Yii::app()->getConfig("RPCInterface")=='json')
         {
@@ -125,7 +125,7 @@ class extendRemoteControl extends PluginBase {
             {
                 if(floatval(Yii::app()->getConfig("versionnumber"))>=2.5)
                 {
-                    $url=$this->api->createUrl('admin/pluginhelper', array('plugin' => $this->getName(), 'sa'=>'sidebody','method'=>'actionIndex','surveyId'=>0));
+                    $url=Yii::app()->getController()->createAbsoluteUrl('admin/pluginhelper', array('plugin' => $this->getName(), 'sa'=>'sidebody','method'=>'actionIndex','surveyId'=>0));
                 }
                 $this->settings['information']['content'].="<p class='alert alert-warning'>".sprintf(gT("The API was published on <a href='%s'>%s</a>",'unescaped'),$url,$url)."</p>";
             }
