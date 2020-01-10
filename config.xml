@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<config>
+    <metadata>
+        <name>extendRemoteControl</name>
+        <type>plugin</type>
+        <creationDate>2015-07-29</creationDate>
+        <last_update>2020-01-10</last_update>
+        <author>Denis Chenu</author>
+        <authorUrl>https://www.sondages.pro</authorUrl>
+        <version>1.2.0</version>
+        <license>GPL</license>
+        <description><![CDATA[ Demo plugin to show how to extendRemoteControl Plugin for LimeSurvey.]]></description>
+    </metadata>
+
+    <compatibility>
+        <version>3.0</version>
+        <version>4.0</version>
+    </compatibility>
+
+    <updaters disabled="disabled">
+    </updaters>
+</config>
