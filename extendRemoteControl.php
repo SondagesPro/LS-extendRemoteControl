@@ -107,6 +107,9 @@ class extendRemoteControl extends PluginBase {
      */
     public function getPluginSettings($getValues=true)
     {
+        if(!Permission::model()->hasGlobalPermission('settings','read')) {
+            throw new CHttpException(403);
+        }
         $this->settings['information']['content']="";
         /* test if plugins/unsecure is in noCsrfValidationRoutes : in internal for compatible LimeSurvey version */
         if(in_array('plugins/unsecure',App()->request->noCsrfValidationRoutes))
