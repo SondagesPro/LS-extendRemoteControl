@@ -31,17 +31,22 @@ To allow plugin to be called via RPC POST routine, you need to disable CsrfValid
 ````
 
 ### With LimeSurvey 2.50 after build 160330 or 2.06_sp_1.0.9
+
 The plugin can be used with newUnsecureRequest event
 
 ## Usage
 
-You can call the new function with the link shown in plugin settings. If you publish API in LimeSurvey core config : another url is show where you can see all availablke function (the new one and the other from LimeSurvey core).
+This plugin extend [LimeSurvey RemoteControl 2 API](https://manual.limesurvey.org/RemoteControl_2_API). New function are added to LimeSurvey API with the new url created by the plugin. 
 
-Since authentification and `get_session_key` is the same function, you can create the session key with the core remote control url and use it in the plugin remote control url. This allow different plugin with different function. Using same control key.
+You can call the new function with the link shown in plugin settings. If you publish API in LimeSurvey core config : another url is show where you can see all available function (the new one and the other from LimeSurvey core).
+
+Since authentification and `get_session_key` is the same function, you can create the session key with the core remote control url and use it in the plugin remote control url. This allow different plugin with different function, using same control key.
+
+This plugin was tested only with JSON-RPC.
 
 ## Home page & Copyright
 - HomePage <http://extensions.sondages.pro/extendremotecontrol/>
-- Copyright © 2015-2016 Denis Chenu <http://sondages.pro>
+- Copyright © 2015-2021 Denis Chenu <http://sondages.pro>
 - Licence : GNU General Public License <https://www.gnu.org/licenses/gpl-3.0.html>
 
 ## Support
